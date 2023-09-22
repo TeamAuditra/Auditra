@@ -1,5 +1,5 @@
 {
-  "name": "cyber-guardian",
+  "name": "auditra",
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
@@ -17,7 +17,8 @@
     "@discordx/pagination": "^3.4.1",
     "discord.js": "^14.13.0",
     "discordx": "^11.7.6",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "googleapis": "^126.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.6.2",
