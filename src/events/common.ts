@@ -12,11 +12,45 @@ export class Example {
       if (err) return err;
       else {
         const parsedData = JSON.parse(data);
-        const toxicityIndex = parseFloat(parsedData.attributeScores.TOXICITY.summaryScore.value) * 100;
-        if (toxicityIndex >= 40) {
-          message.reply(
-            `message: ${message.content} \n toxicity index: ${toxicityIndex} \n user: ${message.author.username}`
-          );
+        const toxicityIndex =
+          parseInt(parsedData.attributeScores.TOXICITY.summaryScore.value) * 100;
+        if (toxicityIndex >= 0) {
+          message.delete()
+          const embed: EmbedBuilder = new EmbedBuilder()
+            .setColor("#212945")
+            .setTitle("Toxicity detected")
+            .setThumbnail(
+              "https://cdn.discordapp.com/avatars/" +
+                message.author.id +
+                "/" +
+                message.author.avatar +
+                ".jpeg"
+            )
+            .addFields(
+              { name: "User", value: `<@${message.author.id}>` },
+              {
+                name: "Toxicity index",
+                value: `${toxicityIndex}`,
+                inline: false,
+              },
+              {
+                name: "Detected language",
+                value: `${parsedData.detectedLanguages[0]}`,
+                inline: true,
+              },
+              {
+                name: "Type",
+                value: `${parsedData.attributeScores.TOXICITY.summaryScore.type}`,
+                inline: true,
+              }
+            )
+            .setTimestamp()
+            .setFooter({
+              text: "Auditra",
+              iconURL:
+                "https://avatars.githubusercontent.com/u/145500157?s=200&v=4",
+            });
+          message.reply({ embeds: [embed] });
         }
       }
     }, message.content);
